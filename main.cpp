@@ -1,41 +1,32 @@
-#include <iostream>
+#include "snake.h"
+#include "utils.h"
+#include "keyDetector.h"
+#include "keyDetectorFactory.h"
+#include "gameContext.h"
 #include <SFML/Graphics.hpp>
 #include <cstdlib> 
 #include <ctime>   
-
-float random(int axis)
-{
-    srand(time(0));
-    float randomAxis = rand() % axis + 1;
-    return randomAxis;
-}
+#include <memory>
+#include <iostream>
 
 int main() {
-    const int xAxis {800};
-    const int yAxis {600};
+    // Create window
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Snake");
 
-    float xPos = random((xAxis/2));
-    float yPos = random((yAxis/2));
+    // Create snake
+    Snake snake;
 
-    float velocity {0.1};
+    // Set the initial direction to the left
+    Direction currentDirection {LEFT};
 
-    sf::RenderWindow window(sf::VideoMode({xAxis,yAxis}), "Snake");
+    // Create a game context struct
+    GameContext ctx {window, currentDirection};
 
-    enum Direction {
-        UP,    // Default value is 0
-        DOWN,  // Default value is 1
-        LEFT,  // Default value is 2
-        RIGHT, // Default value is 3
-    };
-
-    Direction myDirection {LEFT};
-
-    // Create rectangle and position it randomly within the grid
-    sf::RectangleShape rectangle({10.0f, 10.0f});
-    rectangle.setPosition({xPos, yPos});
     // Set the frame rate to 60 which is good enough for snake
     window.setFramerateLimit(60);
-    sf::Vector2f movePosition {0.0, 0.0};
+
+    // Create key objects to handle different keys
+    std::unique_ptr<DetectKey> keyDetector;
 
     // Run the window as long as the window is open
     while (window.isOpen())
@@ -48,65 +39,30 @@ int main() {
         
             if (event->is<sf::Event::KeyPressed>())
             {
-                // Check for escape key
                 const auto keyEvent = event->getIf<sf::Event::KeyPressed>();
                 
-                if (keyEvent && keyEvent->code == sf::Keyboard::Key::Escape)
-                    window.close();
-
-                // Check for left key
-                if (keyEvent && keyEvent->code == sf::Keyboard::Key::Left)
+                if (keyEvent)
                 {
-                    myDirection = Direction::LEFT;
+                    keyDetector = keyDetectorFactory::createKeyDetector(keyEvent->code);
+                    if (keyDetector)
+                        keyDetector->doSomething(ctx);
                 }
-
-                // Check for right key
-                if (keyEvent && keyEvent->code == sf::Keyboard::Key::Right)
-                {
-                    myDirection = Direction::RIGHT;
-                }
-            
-                // Check for up key
-                if (keyEvent && keyEvent->code == sf::Keyboard::Key::Up)
-                {
-                    myDirection = Direction::UP;
-                }
-
-                if (keyEvent && keyEvent->code == sf::Keyboard::Key::Down)
-                {
-                    myDirection = Direction::DOWN;
-                }
-
             }
                 
         }
 
-        switch (myDirection)
-        {
-            case UP:
-                movePosition = {0.0, -0.1};
-                break;
-            case DOWN:
-                movePosition = {0.0, 0.1};
-                break;
-            case LEFT:
-                movePosition = {-0.1, 0.0};
-                break;
-            case RIGHT:
-                movePosition = {0.1, 0.0};
-                break;
-        };
-
         // Always move rectangle 
-        rectangle.move(movePosition);
+        snake.changeDirection(currentDirection);
 
         // Clear the window with black color
         window.clear(sf::Color::Black);
 
         // Draw the rectangle from earlier
-        window.draw(rectangle);
+        window.draw((snake.getSnake()).at(0));
 
         // Display what we've drawn
         window.display();
+
+        
     }
 }

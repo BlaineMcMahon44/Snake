@@ -10,7 +10,7 @@
 Snake::Snake()
 {  
     // Create head of the snake from with 10 x 10 floats
-    sf::RectangleShape snakeHead {{10.0f, 10.0f}};
+    sf::RectangleShape snakeHead {{RECTANGLE_LENGTH, RECTANLGE_WIDTH}};
 
     // Spawn the snake
     if (!spawnSnake(snakeHead))
@@ -31,8 +31,8 @@ bool Snake::spawnSnake(sf::RectangleShape& snakeHead)
 // Method to check if the snake head is in bounds
 bool Snake::checkBounds(const float xPos, const float yPos)
 {
-    if ((xPos >= static_cast<float>(WINDOW_WIDTH)) || (xPos <= static_cast<float>(WINDOW_HEIGHT)) ||
-        (yPos >= static_cast<float>(WINDOW_HEIGHT)) || (yPos <= static_cast<float>(WINDOW_HEIGHT)))
+    if ( (xPos >= static_cast<float>(WINDOW_WIDTH)) || (xPos <= OUT_OF_BOUNDS) ||
+        (yPos >= static_cast<float>(WINDOW_HEIGHT)) || (yPos <= OUT_OF_BOUNDS ))
     {
         return false;
     }
@@ -41,8 +41,18 @@ bool Snake::checkBounds(const float xPos, const float yPos)
 
 
 // Method to move the snake to a new position
-void Snake::moveSnake(sf::Vector2f position)
+void Snake::changeDirection(Direction direction)
 {
+    // Don't need to change direction
+    if (direction == moveDirection)
+        return;
+    
+    moveDirection = direction;
+
+    // Set the speed of snake in the correct direction
+    setVelocity();
+
+    // Get coordinates to validate if snake is in bounds
     const float xPos = snakeBody.at(0).getPosition().x;
     const float yPos = snakeBody.at(0).getPosition().y;
 
@@ -59,11 +69,31 @@ void Snake::moveSnake(sf::Vector2f position)
         std::cout << "Snake is out of bounds" << xPos << " " << yPos << "\n";
     }
 
-    snakeBody.at(0).move(position);
+    // Adjust snake position by offset 
+    snakeBody.at(0).move(velocity);
 }
 
 // Return the snake head
 const std::vector<sf::RectangleShape>& Snake::getSnake()
 {
     return snakeBody;
+}
+
+void Snake::setVelocity()
+{
+    switch (moveDirection)
+    {
+        case UP:
+            velocity = {0.0, -1.1};
+            break;
+        case DOWN:
+            velocity = {0.0, 1.1};
+            break;
+        case LEFT:
+            velocity = {-1.1, 0.0};
+            break;
+        case RIGHT:
+            velocity = {1.1, 0.0};
+            break;
+    };
 }
