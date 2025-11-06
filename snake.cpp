@@ -42,11 +42,7 @@ bool Snake::checkBounds(const float xPos, const float yPos)
 
 // Method to move the snake to a new position
 void Snake::changeDirection(Direction direction)
-{
-    // Don't need to change direction
-    if (direction == moveDirection)
-        return;
-    
+{   
     moveDirection = direction;
 
     // Set the speed of snake in the correct direction

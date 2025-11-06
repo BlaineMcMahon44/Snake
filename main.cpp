@@ -43,6 +43,7 @@ int main() {
                 
                 if (keyEvent)
                 {
+                    // Act on if a valid key was pressed
                     keyDetector = keyDetectorFactory::createKeyDetector(keyEvent->code);
                     if (keyDetector)
                         keyDetector->doSomething(ctx);
