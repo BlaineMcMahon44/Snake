@@ -3,6 +3,7 @@
 #include "keyDetector.h"
 #include "keyDetectorFactory.h"
 #include "gameContext.h"
+#include "gameWindow.h"
 #include <SFML/Graphics.hpp>
 #include <cstdlib> 
 #include <ctime>   
@@ -10,8 +11,8 @@
 #include <iostream>
 
 int main() {
-    // Create window
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Snake");
+    // Create a game window
+    auto gameWindow = GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Snake");
 
     // Create snake
     Snake snake;
@@ -20,22 +21,21 @@ int main() {
     Direction currentDirection {LEFT};
 
     // Create a game context struct
-    GameContext ctx {window, currentDirection};
+    GameContext ctx {gameWindow, currentDirection};
 
-    // Set the frame rate to 60 which is good enough for snake
-    window.setFramerateLimit(60);
+    // Set the frame rate to 60, which is good enough for snake
+    gameWindow.setFrameRate(FRAME_RATE);
 
-    // Create key objects to handle different keys
-    std::unique_ptr<DetectKey> keyDetector;
+    // Pointer to keyDetector base class
 
     // Run the window as long as the window is open
-    while (window.isOpen())
+    while (gameWindow.isOpen())
     {
-        // Check all of the window's events that were triggered since the last iteration of the loop
-        while (const std::optional event = window.pollEvent())
+        // Check all the window's events that were triggered since the last iteration of the loop
+        while (const std::optional event = gameWindow.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
-                window.close();
+                gameWindow.close();
         
             if (event->is<sf::Event::KeyPressed>())
             {
@@ -43,8 +43,8 @@ int main() {
                 
                 if (keyEvent)
                 {
-                    // Act on if a valid key was pressed
-                    keyDetector = keyDetectorFactory::createKeyDetector(keyEvent->code);
+                    // Returns a pointer to the correct derived class
+                    std::unique_ptr<DetectKey> keyDetector = keyDetectorFactory::createKeyDetector(keyEvent->code);
                     if (keyDetector)
                         keyDetector->doSomething(ctx);
                 }
@@ -53,17 +53,16 @@ int main() {
         }
 
         // Always move rectangle 
-        snake.changeDirection(currentDirection);
+        //snake.changeDirection(currentDirection);
 
         // Clear the window with black color
-        window.clear(sf::Color::Black);
+        gameWindow.clear(sf::Color::Black);
 
         // Draw the rectangle from earlier
-        window.draw((snake.getSnake()).at(0));
+        gameWindow.draw(snake.getSnake());
 
-        // Display what we've drawn
-        window.display();
+        // Display the window
+        gameWindow.display();
 
-        
     }
 }

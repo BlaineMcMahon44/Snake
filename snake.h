@@ -14,25 +14,7 @@
  *  
  */
 class Snake {
-public:
-    /**
-    * @brief Constructs spawns snake randomly in-bounds
-    * @throws std::runtime_error if spawning fails
-    */
-    Snake();
-
-    /**
-     * @brief Moves the snake by offset from current position
-     * @param position sf::Vector2f consists of x and y float values.
-     */
-    void changeDirection(Direction direction);
-
-    /**
-     * @brief Returns a reference to the head of the snake.
-     */
-    const std::vector<sf::RectangleShape>& getSnake();
-
-private:
+    private:
     /**
      * @brief Creates a vector to hold snake shapes (sf::RectangleShape)
      */
@@ -66,4 +48,21 @@ private:
      */
     void setVelocity();
 
+public:
+    /**
+    * @brief Constructs spawns snake randomly in-bounds
+    * @throws std::runtime_error if spawning fails
+    */
+    Snake();
+
+    /**
+     * @brief Moves the snake by offset from current position
+     * @param position sf::Vector2f consists of x and y float values.
+     */
+    void changeDirection(Direction direction);
+
+    /**
+     * @brief Returns a reference to the head of the snake.
+     */
+    const std::vector<sf::RectangleShape>& getSnake();
 };

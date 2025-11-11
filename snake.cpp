@@ -24,6 +24,7 @@ bool Snake::spawnSnake(sf::RectangleShape& snakeHead)
 {
     Coordinates snakeSpawnCoordinates {};
     generateSpawnPoint(snakeSpawnCoordinates);
+    std::cout << "Snake spawned at " << snakeSpawnCoordinates.xPos << " " << snakeSpawnCoordinates.yPos << "\n";
     snakeHead.setPosition({snakeSpawnCoordinates.xPos, snakeSpawnCoordinates.yPos});
     return true;
 }
@@ -41,7 +42,7 @@ bool Snake::checkBounds(const float xPos, const float yPos)
 
 
 // Method to move the snake to a new position
-void Snake::changeDirection(Direction direction)
+void Snake::changeDirection(const Direction direction)
 {   
     moveDirection = direction;
 

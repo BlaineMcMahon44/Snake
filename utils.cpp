@@ -4,7 +4,7 @@
 
 void generateSpawnPoint(Coordinates& spawnPoint)
 {
-    srand(time(0));
-    spawnPoint.xPos = rand() % WINDOW_WIDTH + 1;
-    spawnPoint.yPos = rand() % WINDOW_HEIGHT + 1;
+    srand(time(nullptr));
+    spawnPoint.xPos = rand() % static_cast<int>(WINDOW_WIDTH) + 1;
+    spawnPoint.yPos = rand() % static_cast<int>(WINDOW_HEIGHT) + 1;
 }

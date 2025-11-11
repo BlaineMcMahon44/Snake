@@ -1,3 +1,4 @@
+#include "gameWindow.h"
 #include <SFML/Graphics.hpp>
 
 #pragma once
@@ -7,6 +8,6 @@
  * @brief holds references to the game window and the direction of the snake
  */
 struct GameContext {
-    sf::RenderWindow& window;
+    GameWindow& window;
     Direction& direction;
 };

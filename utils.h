@@ -1,8 +1,8 @@
 #pragma once
 
 // Window size constants
-constexpr int WINDOW_WIDTH = {800};
-constexpr int WINDOW_HEIGHT = {600};
+constexpr unsigned int WINDOW_WIDTH = {800};
+constexpr unsigned int WINDOW_HEIGHT = {600};
 
 // Rectangle size constants
 constexpr float RECTANGLE_LENGTH = {10.0f};
@@ -10,6 +10,7 @@ constexpr float RECTANLGE_WIDTH = {10.0f};
 
 constexpr int OUT_OF_BOUNDS = {0};
 
+constexpr int FRAME_RATE = {60};
 
 // Coordinate struct to help spawn things
 struct Coordinates {
