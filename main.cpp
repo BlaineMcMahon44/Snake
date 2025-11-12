@@ -5,8 +5,6 @@
 #include "gameContext.h"
 #include "gameWindow.h"
 #include <SFML/Graphics.hpp>
-#include <cstdlib> 
-#include <ctime>   
 #include <memory>
 #include <iostream>
 
@@ -23,11 +21,11 @@ int main() {
     // Create a game context struct
     GameContext ctx {gameWindow, currentDirection};
 
-    // Set the frame rate to 60, which is good enough for snake
+    // Set the frame rate to 60, which is good enough for a snake
     gameWindow.setFrameRate(FRAME_RATE);
 
     // Pointer to keyDetector base class
-
+    int test = 0;
     // Run the window as long as the window is open
     while (gameWindow.isOpen())
     {
@@ -53,7 +51,12 @@ int main() {
         }
 
         // Always move rectangle 
-        //snake.changeDirection(currentDirection);
+        snake.changeDirection(currentDirection);
+
+        if (test < 1)
+            snake.addBody();
+
+        test++;
 
         // Clear the window with black color
         gameWindow.clear(sf::Color::Black);

@@ -1,8 +1,7 @@
+#pragma once
 #include "utils.h"
 #include "gameContext.h"
 #include <SFML/Graphics.hpp>
-
-#pragma once
 
 /**
  * @class DetectKey

@@ -1,7 +1,7 @@
+#pragma once
 #include "keyDetector.h"
 #include <SFML/Graphics.hpp>
 
-#pragma once
 
 /**
  * @class keyDetectorFactory

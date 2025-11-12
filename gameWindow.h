@@ -1,12 +1,11 @@
+#pragma once
 #include <SFML/Graphics.hpp>
-#include <cstdlib> 
+#include <cstdlib>
 #include <ctime>   
 #include <memory>
 #include <iostream>
 #include <string>
 
-
-#pragma once
 
 class GameWindow {
 private:
@@ -15,10 +14,10 @@ private:
 public:
     GameWindow(const unsigned int windowWidth, const unsigned int windowHeight, const std::string& description);
     void setFrameRate(int frameRate);
-    bool isOpen();
+    bool isOpen() const;
     std::optional<sf::Event> pollEvent();
     void close();
     void clear(sf::Color color);
     void display();
-    void draw(const std::vector<sf::RectangleShape>& snake);
+    void draw(const std::vector<sf::RectangleShape>& snakeBody);
 };

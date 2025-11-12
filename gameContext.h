@@ -1,7 +1,6 @@
+#pragma once
 #include "gameWindow.h"
 #include <SFML/Graphics.hpp>
-
-#pragma once
 
 /**
  * @struct GameContext struct that keeps track of gameContext

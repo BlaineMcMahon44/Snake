@@ -48,6 +48,11 @@ class Snake {
      */
     void setVelocity();
 
+    /**
+    * @brief Helper to determine where to add the block to the snake
+    */
+    sf::Vector2f addBodyHelper();
+
 public:
     /**
     * @brief Constructs spawns snake randomly in-bounds
@@ -57,7 +62,7 @@ public:
 
     /**
      * @brief Moves the snake by offset from current position
-     * @param position sf::Vector2f consists of x and y float values.
+     * @param direction sf::Vector2f consists of x and y float values.
      */
     void changeDirection(Direction direction);
 
@@ -65,4 +70,9 @@ public:
      * @brief Returns a reference to the head of the snake.
      */
     const std::vector<sf::RectangleShape>& getSnake();
+
+    /**
+    * @brief Adds to the snake body
+    */
+    void addBody();
 };
