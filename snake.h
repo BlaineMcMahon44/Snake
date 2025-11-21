@@ -1,5 +1,6 @@
 #pragma once
 #include "utils.h"
+#include "linkedList.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
 
@@ -16,9 +17,9 @@
 class Snake {
     private:
     /**
-     * @brief Creates a vector to hold snake shapes (sf::RectangleShape)
+     * @brief Creates a pointer to a doubly linked list to hold snake shapes (sf::RectangleShape)
      */
-    std::vector<sf::RectangleShape> snakeBody {};
+    std::unique_ptr<LinkedList> snakeBody = std::make_unique<LinkedList>();
 
     /**
      * @brief Direction that the snake is moving
@@ -69,10 +70,11 @@ public:
     /**
      * @brief Returns a reference to the head of the snake.
      */
-    const std::vector<sf::RectangleShape>& getSnake();
+    LinkedList& getSnake() const;
 
     /**
     * @brief Adds to the snake body
     */
     void addBody();
+
 };

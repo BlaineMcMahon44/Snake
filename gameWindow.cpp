@@ -38,11 +38,14 @@ void GameWindow::display()
     window.display();
 }
 
-void GameWindow::draw(const std::vector<sf::RectangleShape>& snakeBody)
+void GameWindow::draw(const Node* snakeHead)
 {
-    for (sf::RectangleShape bodyPart: snakeBody)
+    const Node* bodyPart = snakeHead;
+    while (bodyPart)
     {
-        std::cout << "X pos: " << bodyPart.getPosition().x << " Y Pos: "<< bodyPart.getPosition().y  << "\n";
-        window.draw(bodyPart);
+        std::cout << "X pos: " << bodyPart->data.getPosition().x << " Y Pos: "<< bodyPart->data.getPosition().y  << "\n";
+        window.draw(bodyPart->data);
+        bodyPart = bodyPart->next;
     }
+
 }

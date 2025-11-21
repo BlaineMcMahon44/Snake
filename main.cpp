@@ -37,13 +37,10 @@ int main() {
         
             if (event->is<sf::Event::KeyPressed>())
             {
-                const auto keyEvent = event->getIf<sf::Event::KeyPressed>();
-                
-                if (keyEvent)
+                if (const auto keyEvent = event->getIf<sf::Event::KeyPressed>())
                 {
                     // Returns a pointer to the correct derived class
-                    std::unique_ptr<DetectKey> keyDetector = keyDetectorFactory::createKeyDetector(keyEvent->code);
-                    if (keyDetector)
+                    if (const std::unique_ptr<DetectKey> keyDetector = keyDetectorFactory::createKeyDetector(keyEvent->code))
                         keyDetector->doSomething(ctx);
                 }
             }
@@ -53,7 +50,7 @@ int main() {
         // Always move rectangle 
         snake.changeDirection(currentDirection);
 
-        if (test < 1)
+        if (test < 0)
             snake.addBody();
 
         test++;
@@ -62,7 +59,7 @@ int main() {
         gameWindow.clear(sf::Color::Black);
 
         // Draw the rectangle from earlier
-        gameWindow.draw(snake.getSnake());
+        gameWindow.draw(snake.getSnake().getHead());
 
         // Display the window
         gameWindow.display();

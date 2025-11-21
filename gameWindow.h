@@ -1,4 +1,5 @@
 #pragma once
+#include "node.h"
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <ctime>   
@@ -19,5 +20,5 @@ public:
     void close();
     void clear(sf::Color color);
     void display();
-    void draw(const std::vector<sf::RectangleShape>& snakeBody);
+    void draw(const Node* snakeHead);
 };
