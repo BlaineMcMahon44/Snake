@@ -5,14 +5,15 @@
 
 /**
  * @class DetectKey
- * @brief DetectKey is an base class used to different derived key classes
+ * @brief DetectKey is a base class used to different derived key classes
  * used to implement the stragety pattern
  */
 class DetectKey {
 public:
     /**
-    * @brief defines a virutal function doSomething and desctructor
-    * doSomething takes in a reference to some gameContext to change direction of snake
+    * @brief defines a virtual function doSomething
+    *
+    * takes in a reference to some gameContext to change a direction of snake
     */
     virtual ~DetectKey() = default;
     virtual void doSomething(GameContext& ctx) = 0;
@@ -20,6 +21,7 @@ public:
 
 /**
  * @class MoveKeyLeft
+ *
  * @brief MoveKeyLeft is a derived class used to change the direction of the snake left 
  */
 class MoveKeyLeft: public DetectKey {
@@ -29,6 +31,7 @@ public:
 
 /**
  * @class MoveKeyRight
+ *
  * @brief MoveKeyRight is a derived class used to change the direction of the snake right 
  */
 class MoveKeyRight: public DetectKey {
@@ -38,6 +41,7 @@ class MoveKeyRight: public DetectKey {
 
 /**
  * @class MoveKeyDown
+ *
  * @brief MoveKeyDown is a derived class used to change the direction of the snake down
  */
 class MoveKeyDown: public DetectKey {
@@ -47,6 +51,7 @@ class MoveKeyDown: public DetectKey {
 
 /**
  * @class MoveKeyUp
+ *
  * @brief MoveKeyUp is a derived class used to change the direction of the snake up
  */
 class MoveKeyUp: public DetectKey {
@@ -56,6 +61,7 @@ class MoveKeyUp: public DetectKey {
     
 /**
  * @class EscapeKey
+ *
  * @brief EscapeKey is a derived class used to close the game window
  */
 class EscapeKey: public DetectKey {

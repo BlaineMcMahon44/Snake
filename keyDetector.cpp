@@ -1,26 +1,46 @@
 #include "keyDetector.h" 
 
-// change snake direction left
+/**
+ * @breif abstract method that will detect the LEFT key and change the direction of the snake
+ *
+ * @param ctx - reference to the GameContext direction
+ */
 void MoveKeyLeft::doSomething(GameContext& ctx) {
     ctx.direction = Direction::LEFT;
 }
 
-// change snake direction right
+/**
+ * @breif abstract method that will detect the RIGHT key and change the direction of the snake
+ *
+ * @param ctx - reference to the GameContext direction
+ */
 void MoveKeyRight::doSomething(GameContext& ctx) {
     ctx.direction = Direction::RIGHT;
 }
 
-// change snake direction down
+/**
+ * @breif abstract method that will detect the DOWN key and change the direction of the snake
+ *
+ * @param ctx - reference to the GameContext direction
+ */
 void MoveKeyDown::doSomething(GameContext& ctx) {
     ctx.direction = Direction::DOWN;
 }
 
-// change snake direction up
+/**
+ * @breif abstract method that will detect the UP key and change the direction of the snake
+ *
+ * @param ctx - reference to the GameContext direction
+ */
 void MoveKeyUp::doSomething(GameContext& ctx) {
     ctx.direction = Direction::UP;
 }
 
-// close game window
+/**
+ * @breif abstract method that will detect the ESC key and change the direction of the snake
+ *
+ * @param ctx - reference to the GameContext direction
+ */
 void EscapeKey::doSomething(GameContext& ctx) {
         ctx.window.close();
 }

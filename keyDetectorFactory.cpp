@@ -2,10 +2,14 @@
 #include "keyDetector.h"
 #include <memory>
 
-/*
-* return a pointer to the derived class based on the keyCode
-*/
-std::unique_ptr<DetectKey> keyDetectorFactory::createKeyDetector(sf::Keyboard::Key keyCode)
+/**
+ * @breif Static method that returns a std::unique_ptr that points to the correct Derived DetectKey class
+ *
+ * @param keyCode - sf::Keyboard::Key
+ *
+ * @return - std::unique_ptr to correct derived class or nullptr
+ */
+std::unique_ptr<DetectKey> keyDetectorFactory::createKeyDetector(const sf::Keyboard::Key keyCode)
 {
     switch(keyCode)
     {

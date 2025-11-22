@@ -9,24 +9,19 @@
 #include <iostream>
 
 int main() {
-    // Create a game window
     auto gameWindow = GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Snake");
 
-    // Create snake
     Snake snake;
 
     // Set the initial direction to the left
     Direction currentDirection {LEFT};
 
-    // Create a game context struct
     GameContext ctx {gameWindow, currentDirection};
 
-    // Set the frame rate to 60, which is good enough for a snake
     gameWindow.setFrameRate(FRAME_RATE);
 
-    // Pointer to keyDetector base class
     int test = 0;
-    // Run the window as long as the window is open
+
     while (gameWindow.isOpen())
     {
         // Check all the window's events that were triggered since the last iteration of the loop
@@ -50,7 +45,7 @@ int main() {
         // Always move rectangle 
         snake.changeDirection(currentDirection);
 
-        if (test < 0)
+        if (test < 2)
             snake.addBody();
 
         test++;

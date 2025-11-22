@@ -1,8 +1,8 @@
 #pragma once
 
 // Window size constants
-constexpr unsigned int WINDOW_WIDTH = {800};
-constexpr unsigned int WINDOW_HEIGHT = {600};
+constexpr unsigned int WINDOW_WIDTH = {1000};
+constexpr unsigned int WINDOW_HEIGHT = {1000};
 
 // Rectangle size constants
 constexpr float RECTANGLE_LENGTH = {50.0f};
@@ -10,7 +10,7 @@ constexpr float RECTANLGE_WIDTH = {50.0f};
 
 constexpr int OUT_OF_BOUNDS = {0};
 
-constexpr int FRAME_RATE = {10};
+constexpr int FRAME_RATE = {5};
 
 // Coordinate struct to help spawn things
 struct Coordinates {
@@ -18,7 +18,7 @@ struct Coordinates {
     float yPos;
 };
 
-// Helper function to generate a random spawn within the window
+// Helper functions to generate random spawn within the window
 void generateSpawnPoint(Coordinates& spawnPoint);
 
 // Enum to indicate direction snake is moving
