@@ -11,56 +11,26 @@
  */
 Snake::Snake()
 {  
-    sf::RectangleShape snakeHead {{RECTANGLE_LENGTH, RECTANLGE_WIDTH}};
-
-    if (!spawnSnake(snakeHead))
-    {
-        throw std::runtime_error("Error spawning snake");
-    }
+    sf::RectangleShape snakeHead {{RECTANGLE_HEIGHT, RECTANGLE_WIDTH}};
+    spawnEntity(snakeHead, true);
     snakeBody->addTail(snakeHead);
 }
 
 /**
- * @brief Attempts to set the snakeHead position within the window coordinates
+ * @brief Calls getSnakeHeadBounds to get the x and y pos of the snake's head
+ * the x and y pos represent the top left corner of the snake heads rectangle
  *
- * @param snakeHead - sf::RectangleShape reference
- *
- * @return - bool indicating if success or not setting position
- */
-bool Snake::spawnSnake(sf::RectangleShape& snakeHead)
-{
-    try
-    {
-        Coordinates snakeSpawnCoordinates {};
-        generateSpawnPoint(snakeSpawnCoordinates);
-        std::cout << "Snake spawned at " << snakeSpawnCoordinates.xPos << " " << snakeSpawnCoordinates.yPos << "\n";
-        snakeHead.setPosition({snakeSpawnCoordinates.xPos, snakeSpawnCoordinates.yPos});
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-        return false;
-    }
-}
-
-/**
- * @brief Checks if the snake is inbounds or not
- *
- * @param xPos - float of x pos of snakeHead
- * @param yPos - float of y pos of snakeHead
  * @return - bool indicating if x and y pos are inbounds
  */
-bool Snake::checkBounds(const float xPos, const float yPos)
+bool Snake::checkBounds() const
 {
-    if ( (xPos >= static_cast<float>(WINDOW_WIDTH)) || (xPos <= OUT_OF_BOUNDS) ||
-        (yPos >= static_cast<float>(WINDOW_HEIGHT)) || (yPos <= OUT_OF_BOUNDS ))
-    {
-        return false;
-    }
+    const sf::FloatRect headBounds = getSnakeHeadBounds();
+
+    if (headBounds.position.x <= OUT_OF_BOUNDS || (headBounds.position.x + RECTANGLE_WIDTH) >= WINDOW_WIDTH) return false;
+    if (headBounds.position.y <= OUT_OF_BOUNDS || (headBounds.position.y + RECTANGLE_HEIGHT) >= WINDOW_HEIGHT) return false;
+
     return true;
 }
-
 
 /**
  * @brief Gets the direction from the GameContext which decides which direction the snake should move
@@ -75,11 +45,7 @@ void Snake::changeDirection(const Direction direction)
     moveDirection = direction;
     setVelocity();
 
-    // Get coordinates to validate if snake is in bounds
-    const float xPos = snakeBody->getHeadCoordinateX();
-    const float yPos = snakeBody->getHeadCoordinateY();
-
-    if (checkBounds(xPos, yPos))
+    if (checkBounds())
     {
         // Check bounds of graph
         //std::cout << "Snake is at position " << xPos << " " << yPos << "\n";
@@ -91,7 +57,7 @@ void Snake::changeDirection(const Direction direction)
         //
         // *****
         //std::cout << "Snake is out of bounds" << xPos << " " << yPos << "\n";
-        std::cout << "" << "\n";
+        std::cout << "OUT OF BOUNDS" << "\n";
     }
 
     // Adjust snake position by offset
@@ -111,16 +77,16 @@ void Snake::setVelocity()
     switch (moveDirection)
     {
         case UP:
-            velocity = {0.0, -RECTANLGE_WIDTH};
+            velocity = {0.0, -RECTANGLE_WIDTH};
             break;
         case DOWN:
-            velocity = {0.0,  RECTANLGE_WIDTH};
+            velocity = {0.0,  RECTANGLE_WIDTH};
             break;
         case LEFT:
-            velocity = {-RECTANLGE_WIDTH, 0.0};
+            velocity = {-RECTANGLE_WIDTH, 0.0};
             break;
         case RIGHT:
-            velocity = {RECTANLGE_WIDTH, 0.0};
+            velocity = {RECTANGLE_WIDTH, 0.0};
             break;
         default:
             break;
@@ -157,7 +123,7 @@ sf::Vector2f Snake::addBodyHelper()
  */
 void Snake::addBody()
 {
-    sf::RectangleShape snakeBodyPart {{RECTANGLE_LENGTH, RECTANLGE_WIDTH}};
+    sf::RectangleShape snakeBodyPart {{RECTANGLE_HEIGHT, RECTANGLE_WIDTH}};
     snakeBodyPart.setPosition(addBodyHelper());
     snakeBody->addTail(snakeBodyPart);
 }
@@ -172,4 +138,14 @@ LinkedList& Snake::getSnake() const
     if (!snakeBody)
         throw std::runtime_error("LinkedList::getHead() called on empty list");
     return *snakeBody;
+}
+
+/**
+ * @brief Used to get the x and y pos of the snake head
+ *
+ * @return sf::FloatRect
+ */
+sf::FloatRect Snake::getSnakeHeadBounds() const
+{
+    return snakeBody->getHead()->data.getGlobalBounds();
 }

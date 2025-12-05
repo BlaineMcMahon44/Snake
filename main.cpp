@@ -8,10 +8,14 @@
 #include <memory>
 #include <iostream>
 
+#include "snakeFood.h"
+
 int main() {
     auto gameWindow = GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Snake");
 
     Snake snake;
+
+    auto food = std::make_unique<SnakeFood>();
 
     // Set the initial direction to the left
     Direction currentDirection {LEFT};
@@ -45,16 +49,19 @@ int main() {
         // Always move rectangle 
         snake.changeDirection(currentDirection);
 
-        if (test < 2)
-            snake.addBody();
-
         test++;
 
         // Clear the window with black color
         gameWindow.clear(sf::Color::Black);
 
+        // Draw the food
+        if (food)
+        {
+            gameWindow.drawFood(food->getFood());
+        }
+
         // Draw the rectangle from earlier
-        gameWindow.draw(snake.getSnake().getHead());
+        gameWindow.drawSnake(snake.getSnake().getHead());
 
         // Display the window
         gameWindow.display();

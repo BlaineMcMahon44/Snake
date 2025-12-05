@@ -91,7 +91,7 @@ void GameWindow::display()
  * Create a tmp pointer copy the head to iterate through the linked list and pass the sf::Rectangle
  * to the window draw function which calls `RenderWindow::draw` method
  */
-void GameWindow::draw(const Node* snakeHead)
+void GameWindow::drawSnake(const Node* snakeHead)
 {
     const Node* bodyPart = snakeHead;
     while (bodyPart)
@@ -101,4 +101,9 @@ void GameWindow::draw(const Node* snakeHead)
         bodyPart = bodyPart->next;
     }
 
+}
+
+void GameWindow::drawFood(const sf::RectangleShape& food)
+{
+    window.draw(food);
 }

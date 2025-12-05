@@ -1,7 +1,6 @@
 #pragma once
 #include "utils.h"
 #include "linkedList.h"
-#include <vector>
 #include <SFML/Graphics.hpp>
 
 /**
@@ -10,7 +9,7 @@
  * used to represent the snake head and body
  *
  * Example usage:
- *    Snake snake; will spawn a snake randomly within the window
+c *    Snake snake; will spawn a snake randomly within the window
  *    snake.moveSnake(sf::Vector2f); will move the snake from the current position 
  *  
  */
@@ -36,13 +35,7 @@ class Snake {
      * @param xPos float that denotes the x cooridnate of snake
      * @param yPos float that denotes the y cooridnate of snake
      */
-    bool checkBounds(float xPos, float yPos);
-
-    /**
-     * @brief Randomly create xPos and yPos within window for snake spawn
-     * @param snakeHead takes a reference to the snake head
-     */
-    bool spawnSnake(sf::RectangleShape& snakeHead);
+    bool checkBounds() const;
 
     /**
      * @brief Offset snake from current position
@@ -53,6 +46,13 @@ class Snake {
     * @brief Helper to determine where to add the block to the snake
     */
     sf::Vector2f addBodyHelper();
+
+    /**
+     * @breif Get the bounds of the snake head
+     *
+     * @return sf::FloatRect contains x and y pos
+     */
+    sf::FloatRect getSnakeHeadBounds() const;
 
 public:
     /**

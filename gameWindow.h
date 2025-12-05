@@ -69,5 +69,7 @@ public:
      *
      * @param snakeHead - pointer to the head of the snake
      */
-    void draw(const Node* snakeHead);
+    void drawSnake(const Node* snakeHead);
+
+    void drawFood(const sf::RectangleShape& food);
 };
