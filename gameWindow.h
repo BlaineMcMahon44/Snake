@@ -72,4 +72,7 @@ public:
     void drawSnake(const Node* snakeHead);
 
     void drawFood(const sf::RectangleShape& food);
+
+    void drawText(const sf::Text& text);
+
 };

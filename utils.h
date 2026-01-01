@@ -16,11 +16,15 @@ constexpr int OUT_OF_BOUNDS = {0};
 
 constexpr int FRAME_RATE = {5};
 
+// Text positions
+constexpr sf::Vector2f TITLE_TEXT_POSITION = {450.0f, 200.0f};
+constexpr sf::Vector2f MENU_TEXT_POSITION = {400.0f, 300.0f};
+
 // Coordinate struct to help spawn things
 struct Coordinates {
     float xPos;
     float yPos;
-    bool isSnake= {false};
+    bool isSnake = {false};
 };
 
 // Helper functions to generate random spawn within the window

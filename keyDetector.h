@@ -68,3 +68,13 @@ class EscapeKey: public DetectKey {
 public:
     void doSomething(GameContext& ctx) override; 
 };
+
+/**
+ * @class EnterKey
+ *
+ * @brief EnterKey is a derived class used to start the game
+ */
+class EnterKey: public DetectKey {
+public:
+    void doSomething(GameContext& ctx) override;
+};

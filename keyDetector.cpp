@@ -45,3 +45,11 @@ void EscapeKey::doSomething(GameContext& ctx) {
         ctx.window.close();
 }
 
+/**
+ * @breif abstract method that will detect the ESC key and change the direction of the snake
+ *
+ * @param ctx - reference to the GameContext direction
+ */
+void EnterKey::doSomething(GameContext& ctx) {
+    ctx.isGameStarted = true;
+}

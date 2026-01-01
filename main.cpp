@@ -4,13 +4,15 @@
 #include "keyDetectorFactory.h"
 #include "gameContext.h"
 #include "gameWindow.h"
+#include "gameText.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <iostream>
 
 #include "snakeFood.h"
 
-int main() {
+int main()
+{
     auto gameWindow = GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Snake");
 
     Snake snake;
@@ -20,11 +22,12 @@ int main() {
     // Set the initial direction to the left
     Direction currentDirection {LEFT};
 
-    GameContext ctx {gameWindow, currentDirection};
+    GameContext ctx {gameWindow, currentDirection, false};
 
     gameWindow.setFrameRate(FRAME_RATE);
 
-    int test = 0;
+    auto titleText = GameText("Snake", 50, TITLE_TEXT_POSITION);
+    auto menuText = GameText("Press enter to start", 30, MENU_TEXT_POSITION);
 
     while (gameWindow.isOpen())
     {
@@ -33,7 +36,8 @@ int main() {
         {
             if (event->is<sf::Event::Closed>())
                 gameWindow.close();
-        
+
+
             if (event->is<sf::Event::KeyPressed>())
             {
                 if (const auto keyEvent = event->getIf<sf::Event::KeyPressed>())
@@ -43,27 +47,30 @@ int main() {
                         keyDetector->doSomething(ctx);
                 }
             }
-                
         }
-
-        // Always move rectangle 
-        snake.changeDirection(currentDirection);
-
-        test++;
 
         // Clear the window with black color
         gameWindow.clear(sf::Color::Black);
 
-        // Draw the food
-        if (food)
+        if (!ctx.isGameStarted)
         {
-            gameWindow.drawFood(food->getFood());
+            gameWindow.drawText(titleText.getText());
+            gameWindow.drawText(menuText.getText());
         }
+        else
+        {
+            // Always move rectangle
+            snake.changeDirection(currentDirection);
 
-        // Draw the rectangle from earlier
-        gameWindow.drawSnake(snake.getSnake().getHead());
+            // Draw the food
+            if (food)
+            {
+                gameWindow.drawFood(food->getFood());
+            }
 
-        // Display the window
+            // Draw the rectangle from earlier
+            gameWindow.drawSnake(snake.getSnake().getHead());
+        }
         gameWindow.display();
 
     }

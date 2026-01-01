@@ -107,3 +107,8 @@ void GameWindow::drawFood(const sf::RectangleShape& food)
 {
     window.draw(food);
 }
+
+void GameWindow::drawText(const sf::Text& text)
+{
+    window.draw(text);
+}

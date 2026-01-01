@@ -10,4 +10,5 @@
 struct GameContext {
     GameWindow& window;
     Direction& direction;
+    bool isGameStarted;
 };

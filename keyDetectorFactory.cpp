@@ -28,6 +28,9 @@ std::unique_ptr<DetectKey> keyDetectorFactory::createKeyDetector(const sf::Keybo
         case(sf::Keyboard::Key::Escape):
             return std::make_unique<EscapeKey>();
             break;
+        case(sf::Keyboard::Key::Enter):
+            return std::make_unique<EnterKey>();
+            break;
         default:
             return nullptr;
     }
